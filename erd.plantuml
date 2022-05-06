@@ -1,0 +1,157 @@
+@startuml GKKD-C
+entity User{
+    * id: UUID
+    --
+    * nama_lengkap: string
+    * email: string
+    * pasword: hashed
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Jemaat{
+    * id: UUID
+    --
+    * nama_lengkap: string
+    * jenis_kelamin: 'perempuan'||'laki-laki'
+    * role: Role
+    * tanggal_lahir: DATE
+    nama_panggilan: string
+    umur:number
+    tempat_lahir: string
+    alamat: string
+    tanggal_lahir_baru: DATE
+    role: string
+    blesscomn: Blesscomn.id
+    wilayah_pelayanan: Wilayah_Pelayanan.id
+    kelompok_murid: Kelompok_Murid.id
+    baptis: Baptis.id
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Wilayah_Pelayanan{
+    * id: UUID
+    --
+    nama_wilayah_pelayanan: string
+    blesscomn: Blesscomn
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Blesscomn{
+    * id: UUID
+    --
+    * nama_blesscomn: string
+    * leader: Jemaat.id
+    * vice_leader: Jemaat.id[]
+    jemaat: Jemaat.id[]
+    everage_attendence_a_month: number
+    everage_attendence_a_year: number
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Laporan_Blesscomn{
+    nama_blesscomn: Blesscomn.id
+    kehadiran_pria: number
+    kehadiran_perempuan: number
+    kehadiran_orang_baru_pria: number
+    kehadiran_orang_baru_perempuan: number
+    total: number
+
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Ibadah_minggu{
+    * id: UUID
+    --
+    * nama_ibadah: string
+    * waktu_ibadah: string
+    everage_attendence_a_month: number
+    everage_attendence_a_year: number
+
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Laporan_Ibadah_minggu{
+    + createdAt: DATE
+    + updatedAt: DATE
+    nama_ibadah: Ibadah_minggu.id
+    kehadiran_pria: number
+    kehadiran_perempuan: number
+    kehadiran_orang_baru_pria: number
+    kehadiran_orang_baru_perempuan: number
+    total: number
+
+}
+
+entity Kelompok_Murid{
+    * id: UUID
+    --
+    * nama_kelompok_murid: string
+    * pembimbing: Jemaat.id
+    * murid: Jemaat.id[]
+    buku: string
+    performance_a_month: number
+}
+
+entity Laporan_Kelompok_Murid{
+    + createdAt: DATE
+    + updatedAt: DATE
+    nama_kelompok_murid: Kelompok_Murid.id
+    kehadiran_murid: Kelompok_Murid.murid[]
+    buku: string
+}
+
+entity Event{
+    * id: UUID
+    --
+    nama_event: string
+    detail: string
+    waktu_acara: DATE
+    jumlah_kehadiran: number
+    flier01: blob
+    flier02: blob
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+entity Pendaftaran_Event{
+    * event: Event.id
+    * nama_peserta: string
+    * jenis_kelamin: 'laki-laki' || 'perempuan'
+    * no_tlp: string
+    email: string
+    + createdAt: DATE
+    + updatedAt: DATE  
+}
+
+entity Baptis{
+    jemaat: Jemaat.id
+    waktu: DATE
+    nama_ayah: string
+    nama_ibu: string
+    alamat_ortu: string
+    dibaptis_oleh: Jemaat.id
+    saksi01: string
+    saksi02: string
+    surat_baptis: blob
+    + createdAt: DATE
+    + updatedAt: DATE
+}
+
+User o--|| Jemaat
+Jemaat }--o| Blesscomn
+Jemaat ||--o| Baptis
+Jemaat }|--o{ Kelompok_Murid
+Jemaat o--o| Wilayah_Pelayanan
+
+Blesscomn ||--o Laporan_Blesscomn
+Kelompok_Murid ||--o Laporan_Kelompok_Murid
+
+Ibadah_minggu ||--o Laporan_Ibadah_minggu
+Event ||--o Pendaftaran_Event
+@enduml
