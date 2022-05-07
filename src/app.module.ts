@@ -8,6 +8,8 @@ import { BaptisModule } from './models/baptis/baptis.module';
 import { SundayServiceModule } from './models/sunday_service/sunday_service.module';
 import { SchedulesEventModule } from './models/schedules_event/schedules_event.module';
 import { ConfigModule } from '@nestjs/config';
+import { BlesscomnModule } from './models/blesscomn/blesscomn.module';
+import { WilPelayananModule } from './models/wil_pelayanan/wil_pelayanan.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { ConfigModule } from '@nestjs/config';
     BaptisModule,
     SundayServiceModule,
     SchedulesEventModule,
+    BlesscomnModule,
+    WilPelayananModule,
   ],
   controllers: [AppController],
   providers: [AppService],

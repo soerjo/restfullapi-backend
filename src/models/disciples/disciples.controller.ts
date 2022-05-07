@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DisciplesService } from './disciples.service';
 import { CreateDiscipleDto } from './dto/create-disciple.dto';
 import { UpdateDiscipleDto } from './dto/update-disciple.dto';
@@ -19,16 +27,19 @@ export class DisciplesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.disciplesService.findOne(+id);
+    return this.disciplesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDiscipleDto: UpdateDiscipleDto) {
-    return this.disciplesService.update(+id, updateDiscipleDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateDiscipleDto: UpdateDiscipleDto,
+  ) {
+    return this.disciplesService.update(id, updateDiscipleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.disciplesService.remove(+id);
+    return this.disciplesService.remove(id);
   }
 }

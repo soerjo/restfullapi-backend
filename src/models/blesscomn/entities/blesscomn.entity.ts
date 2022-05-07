@@ -5,42 +5,30 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Baptis {
+export class Blesscomn {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Jemaat, (jm) => jm.nama_lengkap)
-  nama_lengkap: Jemaat;
-
-  @Column({ type: 'date' })
-  waktu: Date;
-
-  @Column()
-  nama_ayah: string;
-
-  @Column()
-  nama_ibu: string;
-
-  @Column()
-  alamat_ortu: string;
+  @Column({ unique: true })
+  nama_blesscomn: string;
 
   @ManyToOne(() => Jemaat, (jm) => jm.nama_lengkap)
-  dibaptis_oleh: Jemaat;
+  leader: Jemaat;
 
-  @Column()
-  saksi01: string;
+  @OneToMany(() => Jemaat, (jm) => jm.nama_lengkap)
+  vice_leader: Jemaat[];
 
-  @Column()
-  saksi02: string;
+  @Column('simple-array', { nullable: true })
+  jemaat: string[];
 
-  @Column()
-  surat_baptis: string;
+  @Column({ nullable: true })
+  alamat: string;
 
   @Exclude()
   @CreateDateColumn()

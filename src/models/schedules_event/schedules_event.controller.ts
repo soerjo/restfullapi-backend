@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SchedulesEventService } from './schedules_event.service';
 import { CreateSchedulesEventDto } from './dto/create-schedules_event.dto';
 import { UpdateSchedulesEventDto } from './dto/update-schedules_event.dto';
@@ -19,16 +27,19 @@ export class SchedulesEventController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.schedulesEventService.findOne(+id);
+    return this.schedulesEventService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSchedulesEventDto: UpdateSchedulesEventDto) {
-    return this.schedulesEventService.update(+id, updateSchedulesEventDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateSchedulesEventDto: UpdateSchedulesEventDto,
+  ) {
+    return this.schedulesEventService.update(id, updateSchedulesEventDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.schedulesEventService.remove(+id);
+    return this.schedulesEventService.remove(id);
   }
 }

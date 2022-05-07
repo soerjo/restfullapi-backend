@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BaptisService } from './baptis.service';
-import { CreateBaptiDto } from './dto/create-bapti.dto';
-import { UpdateBaptiDto } from './dto/update-bapti.dto';
+import { CreateBaptisDto } from './dto/create-bapti.dto';
+import { UpdateBaptisDto } from './dto/update-bapti.dto';
 
 @Controller('baptis')
 export class BaptisController {
   constructor(private readonly baptisService: BaptisService) {}
 
   @Post()
-  create(@Body() createBaptiDto: CreateBaptiDto) {
-    return this.baptisService.create(createBaptiDto);
+  create(@Body() createBaptisDto: CreateBaptisDto) {
+    return this.baptisService.create(createBaptisDto);
   }
 
   @Get()
@@ -19,16 +27,16 @@ export class BaptisController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.baptisService.findOne(+id);
+    return this.baptisService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBaptiDto: UpdateBaptiDto) {
-    return this.baptisService.update(+id, updateBaptiDto);
+  update(@Param('id') id: string, @Body() updateBaptisDto: UpdateBaptisDto) {
+    return this.baptisService.update(id, updateBaptisDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.baptisService.remove(+id);
+    return this.baptisService.remove(id);
   }
 }
