@@ -21,6 +21,12 @@ export class Jemaat {
   nama_panggilan: string;
 
   @Column({ nullable: true })
+  defaultImage: string;
+
+  @Column({ nullable: true })
+  smallImage: string;
+
+  @Column({ nullable: true })
   email: string;
 
   @Column({ type: 'enum', enum: Gender, default: Gender.LAKI_LAKI })
@@ -54,10 +60,10 @@ export class Jemaat {
   baptis: string;
 
   @Exclude()
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   created_at: Date;
 
   @Exclude()
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updated_at: Date;
 }
