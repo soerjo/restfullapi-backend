@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsDate,
   IsEmail,
@@ -11,10 +11,12 @@ import { Gender, Roles } from 'src/common/interfaces';
 
 export class CreateJemaatDto {
   @IsString()
+  @Transform(({ value }) => value.toLowerCase())
   @IsNotEmpty()
   nama_lengkap: string;
 
   @IsString()
+  @Transform(({ value }) => value.toLowerCase())
   @IsNotEmpty()
   nama_panggilan: string;
 
@@ -23,6 +25,7 @@ export class CreateJemaatDto {
   jenis_kelamin: Gender;
 
   @IsEmail()
+  @Transform(({ value }) => value.toLowerCase())
   @IsOptional()
   email?: string;
 
@@ -36,6 +39,7 @@ export class CreateJemaatDto {
   tanggal_lahir: Date;
 
   @IsString()
+  @Transform(({ value }) => value.toLowerCase())
   @IsNotEmpty()
   tempat_lahir: string;
 

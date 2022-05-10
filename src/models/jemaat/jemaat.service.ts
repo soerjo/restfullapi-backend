@@ -1,16 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResponseDto } from 'src/common/dto/response.dto';
-import { Repository } from 'typeorm';
 import { CreateJemaatDto } from './dto/create-jemaat.dto';
 import { UpdateJemaatDto } from './dto/update-jemaat.dto';
-import { Jemaat } from './entities/jemaat.entity';
+import { JemaatRepository } from './jemaat.repository';
 
 @Injectable()
 export class JemaatService {
   constructor(
-    @InjectRepository(Jemaat)
-    private jemaatRepo: Repository<Jemaat>,
+    @InjectRepository(JemaatRepository)
+    private jemaatRepo: JemaatRepository,
   ) {}
 
   async create(createJemaatDto: CreateJemaatDto) {
@@ -48,7 +47,7 @@ export class JemaatService {
 
   async remove(id: string) {
     const getJemaat = await this.jemaatRepo.findOne(id);
-    if (getJemaat) throw new BadRequestException(`data jemaat is not found`);
+    if (!getJemaat) throw new BadRequestException(`data jemaat is not found`);
     await this.jemaatRepo.remove(getJemaat);
 
     return new ResponseDto({

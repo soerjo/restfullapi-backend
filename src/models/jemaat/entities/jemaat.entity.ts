@@ -54,10 +54,10 @@ export class Jemaat {
   baptis: string;
 
   @Exclude()
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   created_at: Date;
 
   @Exclude()
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updated_at: Date;
 }
