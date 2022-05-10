@@ -11,17 +11,23 @@ export class JemaatRepository extends Repository<Jemaat> {
     const { orderBy, search, word } = searchQuery;
 
     const queryBuilder = this.createQueryBuilder('jemaat');
-    queryBuilder.skip(skip).take(take);
-
+    queryBuilder.select([
+      'jemaat.id',
+      'jemaat.nama_lengkap',
+      'jemaat.smallImage',
+      'jemaat.jenis_kelamin',
+      'jemaat.blesscomn',
+    ]);
     if (keyofJemaat.some((val) => val === orderBy))
       queryBuilder.orderBy(`jemaat.${orderBy}`, order);
-
     if (keyofJemaat.some((val) => val === search) && word)
       queryBuilder.where(`jemaat.${search} LIKE :s`, { s: `%${word}%` });
 
     const itemCount = await queryBuilder.getCount();
-    const { entities } = await queryBuilder.getRawAndEntities();
+    if (itemCount < 10) return await queryBuilder.getMany();
 
+    queryBuilder.skip(skip).take(take);
+    const { entities } = await queryBuilder.getRawAndEntities();
     const pageMetaDto = new PageMetaDto({ itemCount, pageOptions });
     return new PageDto(entities, pageMetaDto);
   }

@@ -6,23 +6,40 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { JemaatService } from './jemaat.service';
 import { CreateJemaatDto } from './dto/create-jemaat.dto';
 import { UpdateJemaatDto } from './dto/update-jemaat.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { imageFileFilter } from 'src/common/utils/file-upload.utils';
+import { QueryPaginateDto } from 'src/common/dto';
 
 @Controller('jemaat')
 export class JemaatController {
   constructor(private readonly jemaatService: JemaatService) {}
 
   @Post()
-  create(@Body() createJemaatDto: CreateJemaatDto) {
-    return this.jemaatService.create(createJemaatDto);
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: memoryStorage(),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  create(
+    @UploadedFile() image: Express.Multer.File,
+    @Body() createJemaatDto: CreateJemaatDto,
+  ) {
+    console.log(image);
+    return this.jemaatService.create(createJemaatDto, image);
   }
 
   @Get()
-  findAll() {
-    return this.jemaatService.findAll();
+  findAll(@Query() query: QueryPaginateDto) {
+    return this.jemaatService.findAll(query);
   }
 
   @Get(':id')
@@ -31,13 +48,22 @@ export class JemaatController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateJemaatDto: UpdateJemaatDto) {
-    return this.jemaatService.update(id, updateJemaatDto);
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: memoryStorage(),
+      fileFilter: imageFileFilter,
+    }),
+  )
+  update(
+    @UploadedFile() image: Express.Multer.File,
+    @Param('id') id: string,
+    @Body() updateJemaatDto: UpdateJemaatDto,
+  ) {
+    return this.jemaatService.update(id, updateJemaatDto, image);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    console.log(id);
     return this.jemaatService.remove(id);
   }
 }

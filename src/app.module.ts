@@ -11,7 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BlesscomnModule } from './models/blesscomn/blesscomn.module';
 import { WilPelayananModule } from './models/wil_pelayanan/wil_pelayanan.module';
 import { MailModule } from './models/mail/mail.module';
-import { MulterModule } from './models/multer/multer.module';
+import { UploadModule } from './models/multer/multer.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { MulterModule } from './models/multer/multer.module';
     BlesscomnModule,
     WilPelayananModule,
     MailModule,
-    MulterModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

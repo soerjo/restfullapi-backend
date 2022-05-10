@@ -21,6 +21,12 @@ export class Jemaat {
   nama_panggilan: string;
 
   @Column({ nullable: true })
+  defaultImage: string;
+
+  @Column({ nullable: true })
+  smallImage: string;
+
+  @Column({ nullable: true })
   email: string;
 
   @Column({ type: 'enum', enum: Gender, default: Gender.LAKI_LAKI })
