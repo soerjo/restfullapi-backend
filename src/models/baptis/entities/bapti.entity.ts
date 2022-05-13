@@ -4,7 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -15,7 +14,7 @@ export class Baptis {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Jemaat, (jm) => jm.nama_lengkap)
+  @OneToOne(() => Jemaat, (jm) => jm.nama_lengkap, { onDelete: 'CASCADE' })
   nama_lengkap: Jemaat;
 
   @Column({ type: 'date' })
@@ -30,8 +29,8 @@ export class Baptis {
   @Column()
   alamat_ortu: string;
 
-  @ManyToOne(() => Jemaat, (jm) => jm.nama_lengkap)
-  dibaptis_oleh: Jemaat;
+  @Column()
+  dibaptis_oleh: string;
 
   @Column()
   saksi01: string;

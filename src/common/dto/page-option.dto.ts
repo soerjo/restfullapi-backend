@@ -9,7 +9,7 @@ export enum Order {
 export class PageOptionDto {
   @IsEnum(Order)
   @IsOptional()
-  order?: Order;
+  order?: Order = Order.ASC;
 
   @Type(() => Number)
   @IsInt()
@@ -21,7 +21,7 @@ export class PageOptionDto {
   @IsInt()
   @Min(1)
   @IsOptional()
-  take?: number = 5;
+  take?: number;
 
   get skip(): number {
     return (this.page - 1) * this.take;

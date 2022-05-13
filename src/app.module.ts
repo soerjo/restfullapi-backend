@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './provider/database/provider.module';
@@ -11,7 +11,8 @@ import { ConfigModule } from '@nestjs/config';
 import { BlesscomnModule } from './models/blesscomn/blesscomn.module';
 import { WilPelayananModule } from './models/wil_pelayanan/wil_pelayanan.module';
 import { MailModule } from './models/mail/mail.module';
-import { UploadModule } from './models/multer/multer.module';
+import { UploadModule } from './models/image/multer.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -28,6 +29,12 @@ import { UploadModule } from './models/multer/multer.module';
     UploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+  ],
 })
 export class AppModule {}

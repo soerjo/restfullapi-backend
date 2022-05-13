@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Param,
@@ -12,7 +11,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { memoryStorage } from 'multer';
 import { join } from 'path';
-import { jemaatpathfolder } from 'src/common/constants/image-path.constant';
+import { JEMAAT_PATH_FOLDER } from 'src/common/constants/image-path.constant';
 import { imageFileFilter } from 'src/common/utils/file-upload.utils';
 
 @Controller('image')
@@ -24,8 +23,7 @@ export class MulterController {
       fileFilter: imageFileFilter,
     }),
   )
-  uploadFile(@UploadedFile() files: Express.Multer.File, @Body() body: any) {
-    console.log(body);
+  uploadFile(@UploadedFile() files: Express.Multer.File) {
     const response = {
       originalName: files.originalname,
       fileName: files.filename,
@@ -39,7 +37,7 @@ export class MulterController {
 
   @Get('/jemaat/:id')
   getJemaatImage(@Param('id') id: string, @Res() res: Response) {
-    return res.sendFile(join(process.cwd(), jemaatpathfolder + id));
+    return res.sendFile(join(process.cwd(), JEMAAT_PATH_FOLDER + id));
   }
   @Get('/event-flier/:id')
   getFlierImage(@Param('id') id: string, @Res() res: Response) {

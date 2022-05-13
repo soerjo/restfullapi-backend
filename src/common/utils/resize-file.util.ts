@@ -1,7 +1,7 @@
 import * as sharp from 'sharp';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { jemaatpathfolder } from '../constants/image-path.constant';
+import { JEMAAT_PATH_FOLDER } from '../constants/image-path.constant';
 
 export async function resizeFile(
   image: Express.Multer.File,
@@ -18,7 +18,7 @@ export async function resizeFile(
         fit: sharp.fit.contain,
       })
       .jpeg({ quality: 100 })
-      .toFile('./' + jemaatpathfolder + fileName);
+      .toFile('./' + JEMAAT_PATH_FOLDER + fileName);
 
     return fileName;
   } catch (error) {

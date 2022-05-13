@@ -12,7 +12,7 @@ export class SearchQueryDto {
   search?: string;
 
   @IsString()
-  @MaxLength(20)
+  @MaxLength(50)
   @IsOptional()
   word?: string;
 }

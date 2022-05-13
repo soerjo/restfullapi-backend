@@ -1,10 +1,15 @@
 import { Exclude } from 'class-transformer';
 import { Gender } from 'src/common/interfaces/gender.enum';
 import { Roles } from 'src/common/interfaces/roles.enum';
+import { Baptis } from 'src/models/baptis/entities/bapti.entity';
+import { Blesscomn } from 'src/models/blesscomn/entities/blesscomn.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -47,8 +52,12 @@ export class Jemaat {
   @Column({ type: 'date', nullable: true })
   tanggal_lahir_baru: Date;
 
-  @Column({ nullable: true })
-  blesscomn: string;
+  @ManyToOne(() => Blesscomn)
+  @JoinColumn()
+  blesscomn: Blesscomn;
+
+  @ManyToOne(() => Blesscomn, (bc) => bc.vice_leader)
+  vice_blesscomn: Blesscomn;
 
   @Column({ nullable: true })
   wilayah_pelayanan: string;
@@ -56,8 +65,8 @@ export class Jemaat {
   @Column({ nullable: true })
   kelompok_murid: string;
 
-  @Column({ nullable: true })
-  baptis: string;
+  @OneToOne(() => Baptis, (bp) => bp.id, { nullable: true })
+  baptis: Baptis;
 
   @Exclude()
   @CreateDateColumn({ select: false })

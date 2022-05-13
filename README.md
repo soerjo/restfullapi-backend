@@ -27,6 +27,8 @@ this is my repo for restfull api gkkdc. well it's stil in development mode.
 - Cron Job
 - Mysql
 - Passport
+- multer
+- sharp (image resizer)
 ```
 
 ## Stay in touch

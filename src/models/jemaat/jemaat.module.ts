@@ -5,19 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JemaatRepository } from './jemaat.repository';
 import { MulterModule } from '@nestjs/platform-express';
+import { Blesscomn } from '../blesscomn/entities/blesscomn.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([JemaatRepository]),
+    TypeOrmModule.forFeature([JemaatRepository, Blesscomn]),
     MulterModule.register(),
   ],
   controllers: [JemaatController],
-  providers: [
-    JemaatService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ClassSerializerInterceptor,
-    },
-  ],
+  providers: [JemaatService],
 })
 export class JemaatModule {}

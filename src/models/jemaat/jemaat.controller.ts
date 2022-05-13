@@ -33,7 +33,6 @@ export class JemaatController {
     @UploadedFile() image: Express.Multer.File,
     @Body() createJemaatDto: CreateJemaatDto,
   ) {
-    console.log(image);
     return this.jemaatService.create(createJemaatDto, image);
   }
 

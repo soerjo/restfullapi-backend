@@ -6,13 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { UserPayloadDto } from 'src/common/dto/user-payload.dto';
+import { Roles } from 'src/common/interfaces';
 import { BlesscomnService } from './blesscomn.service';
+import { QueryReportDto } from './dto';
 import { CreateBlesscomnDto } from './dto/create-blesscomn.dto';
 import { UpdateBlesscomnDto } from './dto/update-blesscomn.dto';
 
 @Controller('blesscomn')
 export class BlesscomnController {
+  user: UserPayloadDto = {
+    role: [Roles.ADMIN],
+    userid: '01',
+    username: 'soerjo',
+  };
+
   constructor(private readonly blesscomnService: BlesscomnService) {}
 
   @Post()
@@ -21,8 +31,8 @@ export class BlesscomnController {
   }
 
   @Get()
-  findAll() {
-    return this.blesscomnService.findAll();
+  findAll(@Query() query: QueryReportDto) {
+    return this.blesscomnService.findAll(query, this.user);
   }
 
   @Get(':id')

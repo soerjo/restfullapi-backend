@@ -22,14 +22,14 @@ export class WilPelayanan {
   @ManyToOne(() => Jemaat, (jm) => jm.nama_lengkap)
   spv: Jemaat;
 
-  @OneToMany(() => Blesscomn, (bc) => bc.nama_blesscomn, { nullable: true })
+  @OneToMany(() => Blesscomn, (bc) => bc.wilayah, { nullable: true })
   blesscomn: Blesscomn[];
 
   @Exclude()
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   created_at: Date;
 
   @Exclude()
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updated_at: Date;
 }
