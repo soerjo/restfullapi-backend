@@ -66,6 +66,7 @@ export class Jemaat {
   kelompok_murid: string;
 
   @OneToOne(() => Baptis, (bp) => bp.id, { nullable: true })
+  @JoinColumn()
   baptis: Baptis;
 
   @Exclude()

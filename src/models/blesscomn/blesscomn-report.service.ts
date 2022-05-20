@@ -51,7 +51,7 @@ export class BlesscomnReportService {
     const saveReport = await this.bcreportRepo.save({
       ...res,
       nama_blesscomn: getBc,
-      date: date,
+      date: date + '',
       created_by: user.username,
       updated_by: user.username,
     });
@@ -106,7 +106,7 @@ export class BlesscomnReportService {
       );
 
     let checkReport: BlesscomnReport;
-    const checkDate = getReport.date == date;
+    const checkDate = getReport.date == date.toString();
 
     if (!checkDate) {
       const queryBuilder = this.bcreportRepo.createQueryBuilder('report');
@@ -130,7 +130,7 @@ export class BlesscomnReportService {
     const saveReport = await this.bcreportRepo.save({
       ...getReport,
       ...res,
-      date: date,
+      date: date + '',
       updated_by: user.username,
     });
     return new ResponseDto({

@@ -1,4 +1,5 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Generation } from 'src/common/interfaces/generation.enum';
 
 export class CreateSundayServiceDto {
@@ -6,9 +7,10 @@ export class CreateSundayServiceDto {
   @IsNotEmpty()
   nama_ibadah: string;
 
-  @IsString()
+  @IsNumber()
+  @Type(() => Number)
   @IsNotEmpty()
-  waktu_ibadah: string;
+  waktu_ibadah: number;
 
   @IsEnum(Generation, { each: true })
   @IsNotEmpty()

@@ -6,9 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { BaptisService } from './baptis.service';
 import { CreateBaptisDto } from './dto/create-bapti.dto';
+import { QueryBaptisDto } from './dto/query-baptis.dto';
 import { UpdateBaptisDto } from './dto/update-bapti.dto';
 
 @Controller('baptis')
@@ -21,8 +23,8 @@ export class BaptisController {
   }
 
   @Get()
-  findAll() {
-    return this.baptisService.findAll();
+  findAll(@Query() query: QueryBaptisDto) {
+    return this.baptisService.findAll(query);
   }
 
   @Get(':id')

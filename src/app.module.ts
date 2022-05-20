@@ -5,7 +5,7 @@ import { DatabaseModule } from './provider/database/provider.module';
 import { JemaatModule } from './models/jemaat/jemaat.module';
 import { DisciplesModule } from './models/disciples/disciples.module';
 import { BaptisModule } from './models/baptis/baptis.module';
-import { SundayServiceModule } from './models/sunday_service/sunday_service.module';
+import { IbadahModule } from './models/ibadah/ibadah.module';
 import { SchedulesEventModule } from './models/schedules_event/schedules_event.module';
 import { ConfigModule } from '@nestjs/config';
 import { BlesscomnModule } from './models/blesscomn/blesscomn.module';
@@ -21,7 +21,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     JemaatModule,
     DisciplesModule,
     BaptisModule,
-    SundayServiceModule,
+    IbadahModule,
     SchedulesEventModule,
     BlesscomnModule,
     WilPelayananModule,

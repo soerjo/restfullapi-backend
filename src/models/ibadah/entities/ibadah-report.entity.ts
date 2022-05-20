@@ -5,21 +5,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Blesscomn } from './blesscomn.entity';
+import { Ibadah } from './ibadah.entity';
 
 @Entity()
-export class BlesscomnReport {
+export class IbadahReport {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Blesscomn, (bc) => bc.nama_blesscomn)
-  @JoinColumn()
-  nama_blesscomn: Blesscomn;
+  @ManyToOne(() => Ibadah)
+  ibadah: Ibadah;
 
   @Column({ type: 'bigint' })
   date: string;
@@ -36,10 +34,10 @@ export class BlesscomnReport {
   @Column('int')
   kehadiran_orang_baru_perempuan: number;
 
-  @Column('simple-array', { nullable: true })
-  photo: string[];
+  @Column('simple-array', { nullable: true, select: false })
+  photos: string[];
 
-  @Column('int')
+  @Column('int', { default: 0 })
   total: number;
 
   @Exclude()
@@ -59,7 +57,7 @@ export class BlesscomnReport {
 
   @BeforeInsert()
   @BeforeUpdate()
-  async sumTotal() {
+  getTotal() {
     this.total =
       this.kehadiran_orang_baru_perempuan +
       this.kehadiran_orang_baru_pria +

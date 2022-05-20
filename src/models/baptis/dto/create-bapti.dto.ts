@@ -1,15 +1,13 @@
-import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateBaptisDto {
   @IsString()
   @IsNotEmpty()
   nama_lengkap: string;
 
-  @IsDate()
-  @Type(() => Date)
+  @IsNumber()
   @IsNotEmpty()
-  waktu: Date;
+  waktu: number;
 
   @IsString()
   @IsNotEmpty()
@@ -34,8 +32,4 @@ export class CreateBaptisDto {
   @IsString()
   @IsNotEmpty()
   saksi02: string;
-
-  @IsString()
-  @IsNotEmpty()
-  surat_baptis: string;
 }

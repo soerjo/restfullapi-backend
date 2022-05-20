@@ -62,7 +62,10 @@ export class JemaatService {
   }
 
   async findOne(id: string) {
-    const data = await this.jemaatRepo.findOne(id);
+    const data = await this.jemaatRepo.findOne({
+      where: { id },
+      relations: ['baptis', 'blesscomn'],
+    });
     return new ResponseDto({ data });
   }
 
