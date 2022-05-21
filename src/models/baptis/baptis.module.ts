@@ -3,10 +3,10 @@ import { BaptisService } from './baptis.service';
 import { BaptisController } from './baptis.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Jemaat } from '../jemaat/entities/jemaat.entity';
-import { Baptis } from './entities/bapti.entity';
+import { BaptisRepository } from './baptis.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Jemaat, Baptis])],
+  imports: [TypeOrmModule.forFeature([Jemaat, BaptisRepository])],
   controllers: [BaptisController],
   providers: [BaptisService],
 })

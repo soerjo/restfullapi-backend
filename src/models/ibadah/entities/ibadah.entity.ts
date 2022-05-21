@@ -9,14 +9,14 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class SundayService {
+export class Ibadah {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   nama_ibadah: string;
 
-  @Column()
+  @Column({ type: 'bigint' })
   waktu_ibadah: string;
 
   @Column('simple-array')

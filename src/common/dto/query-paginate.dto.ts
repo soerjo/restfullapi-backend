@@ -1,5 +1,6 @@
 import { IntersectionType } from '@nestjs/mapped-types';
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
 import { PageOptionDto } from './page-option.dto';
 
 export class SearchQueryDto {
@@ -15,6 +16,16 @@ export class SearchQueryDto {
   @MaxLength(50)
   @IsOptional()
   word?: string;
+
+  @IsNumber()
+  @Type(() => Number)
+  @IsOptional()
+  start_date: number;
+
+  @IsNumber()
+  @Type(() => Number)
+  @IsOptional()
+  end_date: number = new Date().getTime();
 }
 
 export class QueryPaginateDto extends IntersectionType(

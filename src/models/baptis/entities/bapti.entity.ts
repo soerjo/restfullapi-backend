@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -14,11 +15,12 @@ export class Baptis {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Jemaat, (jm) => jm.nama_lengkap, { onDelete: 'CASCADE' })
-  nama_lengkap: Jemaat;
+  @OneToOne(() => Jemaat, (jm) => jm.nama_lengkap, { cascade: true })
+  @JoinColumn()
+  jemaat: Jemaat;
 
-  @Column({ type: 'date' })
-  waktu: Date;
+  @Column({ type: 'bigint' })
+  waktu: string;
 
   @Column()
   nama_ayah: string;
@@ -38,7 +40,7 @@ export class Baptis {
   @Column()
   saksi02: string;
 
-  @Column()
+  @Column({ nullable: true })
   surat_baptis: string;
 
   @Exclude()
