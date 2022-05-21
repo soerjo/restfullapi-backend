@@ -60,21 +60,15 @@ export class BaptisService {
   }
 
   async update(id: string, updateBaptisDto: UpdateBaptisDto) {
-    const getBaptis = await this.baptisRepo.findOne(id);
+    const getBaptis = await this.baptisRepo.findOne({
+      where: { id },
+      relations: ['jemaat'],
+    });
     if (!getBaptis) throw new BadRequestException(`data baptis is not found!`);
 
-    const { nama_lengkap, waktu, ...rest } = updateBaptisDto;
-    const getJemaat = await this.jemaatRepo.findOne({ nama_lengkap });
-    if (!getJemaat)
-      throw new BadRequestException(`jemaat ${nama_lengkap} is not found!`);
-
-    const createBaptis = this.baptisRepo.create({
-      ...getBaptis,
-      ...rest,
-    });
-    createBaptis.jemaat = getJemaat;
-    createBaptis.waktu = waktu + '';
-
+    const { waktu, ...rest } = updateBaptisDto;
+    const createBaptis = this.baptisRepo.create({ ...getBaptis, ...rest });
+    if (waktu) createBaptis.waktu = waktu + '';
     const data = await this.baptisRepo.save(createBaptis);
 
     return new ResponseDto({ data });

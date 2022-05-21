@@ -65,7 +65,10 @@ export class Jemaat {
   @Column({ nullable: true })
   kelompok_murid: string;
 
-  @OneToOne(() => Baptis, (bp) => bp.id, { nullable: true })
+  @OneToOne(() => Baptis, (bp) => bp.id, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   @JoinColumn()
   baptis: Baptis;
 

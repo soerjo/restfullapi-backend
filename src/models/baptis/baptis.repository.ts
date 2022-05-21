@@ -15,8 +15,7 @@ export class BaptisRepository extends Repository<Baptis> {
     const queryBuilder = this.createQueryBuilder('baptis');
     queryBuilder
       .orderBy(`baptis.waktu`, order)
-      .leftJoin('baptis.jemaat', 'jemaat')
-      .addSelect('jemaat.nama_lengkap');
+      .leftJoinAndSelect('baptis.jemaat', 'jemaat');
     if (start_date) {
       this.logger.log(
         `start_date: ${new Date(
@@ -37,11 +36,19 @@ export class BaptisRepository extends Repository<Baptis> {
     }
 
     const itemCount = await queryBuilder.getCount();
-    this.logger.log(`skip: ${skip}| take: ${take} |page: ${page}`);
     if (take) queryBuilder.skip(skip).take(take);
 
-    const { entities } = await queryBuilder.getRawAndEntities();
+    queryBuilder.select(['baptis.id', 'baptis.waktu', 'jemaat.nama_lengkap']);
+    const entities = await queryBuilder.getMany();
+    const data = entities.map((obj) => {
+      return {
+        id: obj.id,
+        waktu: obj.waktu,
+        nama: obj.jemaat.nama_lengkap,
+      };
+    });
+
     const pageMetaDto = new PageMetaDto({ itemCount, pageOptions });
-    return new PageDto(entities, pageMetaDto);
+    return new PageDto(data, pageMetaDto);
   }
 }
