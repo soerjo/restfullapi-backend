@@ -63,7 +63,10 @@ export class IbadahReportService {
   }
 
   async findOne(id: string) {
-    const data = await this.ibadahReportRepo.findOne(id);
+    const data = await this.ibadahReportRepo.findOne({
+      where: { id },
+      relations: ['ibadah'],
+    });
     if (!data) throw new BadRequestException(`ibadah is not found`);
 
     return new ResponseDto({ data });

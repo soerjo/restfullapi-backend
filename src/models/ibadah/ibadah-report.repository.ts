@@ -19,19 +19,11 @@ export class IbadahReportRepository extends Repository<IbadahReport> {
       .leftJoin('report.ibadah', 'ibadah')
       .addSelect('ibadah.nama_ibadah');
     if (start_date) {
-      // this.logger.log(
-      //   `start_date: ${new Date(
-      //     start_date,
-      //   ).toLocaleDateString()}| end_date: ${new Date(
-      //     end_date,
-      //   ).toLocaleDateString()}`,
-      // );
       queryBuilder.andWhere(
         `report.date BETWEEN '${start_date}' AND '${end_date}'`,
       );
     }
     if (nama_ibadah) {
-      // this.logger.log(`nama_ibadah: ${nama_ibadah}`);
       queryBuilder.where(`ibadah.nama_ibadah LIKE :s`, {
         s: `%${nama_ibadah}%`,
       });
